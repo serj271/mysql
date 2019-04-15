@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import pymysql
 
+
+DEBUG = True
+
 pymysql.install_as_MySQLdb();
 
 conn = pymysql.connect (host = "localhost",
@@ -8,8 +11,6 @@ conn = pymysql.connect (host = "localhost",
 	passwd = "123456s",
 	db = "test",
 	port=3306)
-
-#cursor1=conn.cursor( );
 
 def call_multi_rs(sp):
 	rs_id=0;
@@ -44,5 +45,10 @@ def call_multi_rs(sp):
 	print ("All rowsets returned")
 	cursor.close( );
 
-call_multi_rs("sp_employee_report_out(1,@out_customer_count)");
-
+call_multi_rs("sp_employee_report_out(1,@out_customer_count)")
+cursor2=conn.cursor( )
+cursor2.execute("SELECT @out_customer_count")
+row=cursor2.fetchone( )
+print "Customer count=%s" % row[0]
+cursor2.close( )
+ 

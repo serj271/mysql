@@ -5,8 +5,9 @@ BEGIN
     label1: LOOP
     
 	SET p1 = p1 + 1;
+	select p1;
 	IF p1 < 10 THEN ITERATE label1; END IF;
-	LEAVE label;
+	LEAVE label1;
 	
     END LOOP label1;
     
